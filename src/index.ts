@@ -9,7 +9,7 @@ const server = express();
 
 AppDataSource.initialize()
     .then(() => {
-        console.log("Data Source innicializado!")
+        console.log("Data Source inicializado!")
     })
     .catch((error) => {
         console.error(error)

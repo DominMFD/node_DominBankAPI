@@ -1,33 +1,27 @@
-const db = [
-    {
-        name: "Joana",
-        email: "Joaninha@dio.com"
-    }
-]
+import { AppDataSource } from "../database";
+import { User } from "../entities/Users";
+import { UserRepository } from "../repositories/UserRepository"
 
 
 export class UserService {
-    createUser = (name: string, email: string) => {
-        const user = {
-            name,
-            email
-        }
-        db.push(user)
-        console.log('DB atualizado', db)
+    private userRepository: UserRepository;
+
+    constructor (
+        userRepository = new UserRepository(AppDataSource.manager),
+    ){
+        this.userRepository = userRepository;
     }
 
-    getAllUsers = () => {
-        return db
+    createUser = async (name: string, email: string, password: string): Promise<User | null> => {
+        const user = new User(name, email, password)
+        return this.userRepository.createUser(user)
+    }
+
+    getUser = () => {
+
     }
 
     deleteUser = (email: string) => {
-        const index = db.findIndex(user => user.email === email)
 
-        if (index !== -1) {
-            db.splice(index, 1)
-            return true
-        }
-
-        return false
     }
 }
