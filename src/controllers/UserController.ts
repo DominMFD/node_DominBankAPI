@@ -31,17 +31,24 @@ export class UserController {
         }
 
     getUser = async (request: Request, response: Response) => {
-        const { userId } = request.params
-        const user = await this.userService.getUser(userId)
+        const { userEmail } = request.params
+        const user = await this.userService.getUser(userEmail)
         return response.status(200).json( {
             userId: user?.id_user,
             name: user?.name,
-            email: user?.email
+            email: user?.email,
+            password: user?.password,
+            balance: user?.balance,
         } )
     }
 
     deleteUser = (request: Request, response: Response) => {
 
         
+    }
+
+    getAllUsers = async (request: Request, response: Response) => {
+        const users = await this.userService.getAllUsers()
+        return response.json(users)
     }
 }

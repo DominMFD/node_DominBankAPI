@@ -1,4 +1,4 @@
-import { EntityManager } from "typeorm";
+import { EntityManager} from "typeorm";
 import { User } from "../entities/Users";
 
 export class UserRepository {
@@ -15,10 +15,10 @@ export class UserRepository {
         return this.manager.save(user)
     }
 
-    getUser = async (user_id: string): Promise<User | null> => {
+    getUser = async (userEmail: string): Promise<User | null> => {
         return this.manager.findOne(User, {
             where: {
-                id_user: user_id
+                email: userEmail
             }
         })
     }
@@ -30,5 +30,11 @@ export class UserRepository {
                 password
             }
         })
+    }
+
+    getAllUsers = async (): Promise<User[] | null> => {
+        const users = await this.manager.find(User)
+        return users
+
     }
 }

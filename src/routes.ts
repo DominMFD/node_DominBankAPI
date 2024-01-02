@@ -9,7 +9,8 @@ const userController = new UserController()
 const logiControler = new LoginController()
 
 router.post('/user', userController.createUser)
-router.get('/user/:userId', verifyAuth, userController.getUser)
-router.delete("/user", userController.deleteUser)
+router.get('/users',  userController.getAllUsers)
+router.get('/user/:userEmail', userController.getUser)
+router.delete("/users", userController.deleteUser)
 
 router.post('/login', logiControler.login)

@@ -9,20 +9,24 @@ export class User {
     @Column({nullable: false})
     name: string
 
-    @Column({nullable: false})
+    @Column({nullable: false, unique: true})
     email: string
 
     @Column({nullable: false})
     password: string
 
+    @Column({nullable: false})
+    balance: number
+
     constructor(
         name: string,
         email: string,
-        password: string
+        password: string,
     ) {
         this.id_user = randomUUID()
         this.name = name
         this.email = email
         this.password = password
+        this.balance = 0
     }
 }

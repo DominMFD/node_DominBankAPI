@@ -18,8 +18,8 @@ export class UserService {
         return this.userRepository.createUser(user)
     }
 
-    getUser = async (userId: string): Promise<User | null> => {
-        return this.userRepository.getUser(userId)
+    getUser = async (userEmail: string): Promise<User | null> => {
+        return this.userRepository.getUser(userEmail)
     }
 
     getAuhenticatedUser = async (email: string, password: string): Promise<User | null> => {
@@ -51,5 +51,10 @@ export class UserService {
 
     deleteUser = (email: string) => {
 
+    }
+
+    getAllUsers = async (): Promise<User[] | null> => {
+        const users = await this.userRepository.getAllUsers()
+        return users
     }
 }
