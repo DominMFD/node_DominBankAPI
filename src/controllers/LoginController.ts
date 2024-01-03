@@ -13,11 +13,11 @@ export class LoginController {
     }
     login = async (request: Request, response: Response) => {
 
-        const {email, password} = request.body
+        const {email} = request.body
 
        try {
 
-        const token = await this.userService.getToken(email, password)
+        const token = await this.userService.getUser(email)
 
         return response.status(200).json({ token })
 
