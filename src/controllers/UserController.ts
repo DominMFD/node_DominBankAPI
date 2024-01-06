@@ -52,4 +52,26 @@ export class UserController {
         const users = await this.userService.getAllUsers()
         return response.json(users)
     }
+
+    updateUser = async (request: Request, response: Response) => {
+        const userId = request.params.id
+        const dataForUpdate = request.body
+
+        try {
+            const user = await this.userService.getUserById(userId)
+
+            if(!user) {
+                return response.status(404).json({message: 'Usuário não encontrado.'})
+            }
+
+            this.userService.updateUser(user, dataForUpdate)
+
+            this.userService.saveUser(user)
+
+            return response.status(200).json({message: 'Usuário atualizado com sucesso'})
+        } catch (error) {
+            console.error('Erro ao atualizar  o  usuário', error)
+            return response.status(500).json({message: 'Erro interno do servidor'})
+        }
+    }
 }

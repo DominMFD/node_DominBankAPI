@@ -24,7 +24,7 @@ export class UserRepository {
     }
 
     getUserbyEmailAndPassword = async (email: string, password: string): Promise<User | null> => {
-        return this.manager.findOne(User, {
+        return await this.manager.findOne(User, {
             where: {
                 email,
                 password
@@ -36,5 +36,26 @@ export class UserRepository {
         const users = await this.manager.find(User)
         return users
 
+    }
+
+    getUserById  = async (id_user: string): Promise<User | null> => {
+        return await this.manager.findOne(User, {
+            where: {
+                id_user
+            }
+        })
+    }
+
+    updateUser = (user: User, dataForUpdate: any) => {
+        return this.manager.createQueryBuilder()
+        .update(User)
+        .set({
+            name: dataForUpdate.name,
+            email: dataForUpdate.email,
+            password: dataForUpdate.password,
+            balance: (user.balance + dataForUpdate.balance)
+        })
+        .where("id_user = :id_user", {id_user: user.id_user})
+        .execute()
     }
 }

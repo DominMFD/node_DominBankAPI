@@ -57,4 +57,16 @@ export class UserService {
         const users = await this.userRepository.getAllUsers()
         return users
     }
+
+    getUserById = async (id_user: string): Promise<User |null> => {
+        return await this.userRepository.getUserById(id_user)
+    }
+
+    updateUser = (user: any, userDataToUpdate: any) => {
+        return this.userRepository.updateUser(user, userDataToUpdate)
+    }
+
+    saveUser = async (user: User) => {
+        return this.userRepository.createUser(user)
+    }
 }
