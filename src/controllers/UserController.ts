@@ -26,6 +26,7 @@ export class UserController {
             if(!user.password) {
                 return response.status(400).json({message: 'Bad request: senha obrigatório'})
             }
+            
             this.userService.createUser(user.name, user.email, user.password)
             return response.status(201).json({message: 'Usuário criado'})
         }
