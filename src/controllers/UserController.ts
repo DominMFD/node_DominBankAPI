@@ -53,7 +53,7 @@ export class UserController {
         return response.json(users)
     }
 
-    updateUser = async (request: Request, response: Response) => {
+    updateUserEmail = async (request: Request, response: Response) => {
         const userId = request.params.id
         const dataForUpdate = request.body
 
@@ -62,6 +62,12 @@ export class UserController {
 
             if(!user) {
                 return response.status(404).json({message: 'Usuário não encontrado.'})
+            }
+
+            const userExist = await this.userService.getUser(user.email)
+
+            if(userExist === null) {
+                return response.status(404).json({message: 'Email já cadastrado.'})
             }
 
             this.userService.updateUser(user, dataForUpdate)

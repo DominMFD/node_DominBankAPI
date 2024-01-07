@@ -47,6 +47,7 @@ export class UserRepository {
     }
 
     updateUser = (user: User, dataForUpdate: any) => {
+        console.log('Dados para a atualização', dataForUpdate)
         return this.manager.createQueryBuilder()
         .update(User)
         .set({
