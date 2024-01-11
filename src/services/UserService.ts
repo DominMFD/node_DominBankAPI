@@ -62,11 +62,15 @@ export class UserService {
         return await this.userRepository.getUserById(id_user)
     }
 
-    updateUser = (user: any, userDataToUpdate: any) => {
+    updateUser = (user: User, userDataToUpdate: any) => {
         return this.userRepository.updateUser(user, userDataToUpdate)
     }
 
     saveUser = async (user: User) => {
         return this.userRepository.createUser(user)
+    }
+
+    withdrawMoney = (user: User, userDataToUpdate: number) => {
+        return this.userRepository.withdrawMoney(user, userDataToUpdate)
     }
 }

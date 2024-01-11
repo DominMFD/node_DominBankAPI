@@ -53,7 +53,7 @@ export class UserController {
         return response.json(users)
     }
 
-    updateUserEmail = async (request: Request, response: Response) => {
+    updateUser = async (request: Request, response: Response) => {
         const userId = request.params.id
         const dataForUpdate = request.body
 
@@ -75,6 +75,34 @@ export class UserController {
             this.userService.saveUser(user)
 
             return response.status(200).json({message: 'Usuário atualizado com sucesso'})
+        } catch (error) {
+            console.error('Erro ao atualizar  o  usuário', error)
+            return response.status(500).json({message: 'Erro interno do servidor'})
+        }
+    }
+
+    withdrawMoney = async (request: Request, response: Response) => {
+        const userId = request.params.id
+        const dataForUpdate = request.body.balance
+
+        try {
+            const user = await this.userService.getUserById(userId)
+
+            if(!user) {
+                return response.status(404).json({message: 'Usuário não encontrado.'})
+            }
+
+            const userExist = await this.userService.getUser(user.email)
+
+            if(userExist === null) {
+                return response.status(404).json({message: 'Email já cadastrado.'})
+            }
+
+            this.userService.withdrawMoney(user, dataForUpdate)
+
+            this.userService.saveUser(user)
+
+            return response.status(200).json({message: 'Saque realizado com sucesso'})
         } catch (error) {
             console.error('Erro ao atualizar  o  usuário', error)
             return response.status(500).json({message: 'Erro interno do servidor'})

@@ -59,4 +59,14 @@ export class UserRepository {
         .where("id_user = :id_user", {id_user: user.id_user})
         .execute()
     }
+
+    withdrawMoney = (user: User, dataForUpdate: number) => {
+        return this.manager.createQueryBuilder()
+        .update(User)
+        .set({
+            balance: (user.balance - dataForUpdate)
+        })
+        .where("id_user = :id_user", {id_user: user.id_user})
+        .execute()
+    }
 }
