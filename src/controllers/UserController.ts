@@ -45,6 +45,17 @@ export class UserController {
 
     deleteUser = (request: Request, response: Response) => {
 
+        const userId = request.params.id
+
+        try {
+
+            this.userService.deleteUser(userId)
+            return response.status(200).json({message: 'Usuario excluido com sucesso'})
+
+        } catch(error) {
+            console.error('Erro ao deletar o usuário', error)
+            return response.status(500).json({message: 'Erro interno do servidor'})
+        }
         
     }
 

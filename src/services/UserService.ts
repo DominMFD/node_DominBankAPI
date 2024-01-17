@@ -49,10 +49,6 @@ export class UserService {
         return token
     }
 
-    deleteUser = (email: string) => {
-
-    }
-
     getAllUsers = async (): Promise<User[] | null> => {
         const users = await this.userRepository.getAllUsers()
         return users
@@ -72,5 +68,9 @@ export class UserService {
 
     withdrawMoney = (user: User, userDataToUpdate: number) => {
         return this.userRepository.withdrawMoney(user, userDataToUpdate)
+    }
+
+    deleteUser = (id_user: string) => {
+        return this.userRepository.deleteUser(id_user)
     }
 }

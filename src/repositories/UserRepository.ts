@@ -69,4 +69,12 @@ export class UserRepository {
         .where("id_user = :id_user", {id_user: user.id_user})
         .execute()
     }
+
+    deleteUser = (id_user: string) => {
+        return this.manager.createQueryBuilder()
+        .delete()
+        .from(User)
+        .where("id_user = :id_user", {id_user: id_user})
+        .execute()
+    }
 }

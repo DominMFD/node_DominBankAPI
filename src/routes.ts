@@ -13,6 +13,6 @@ router.get('/users',  userController.getAllUsers)
 router.get('/user/:userEmail', userController.getUser)
 router.put('/user/:id', userController.updateUser)
 router.put('/account/:id', userController.withdrawMoney)
-router.delete("/users", userController.deleteUser)
+router.delete("/user/:id", userController.deleteUser)
 
 router.post('/login', logiControler.login)
